@@ -1,0 +1,2549 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dronacharya School of Artificial Intelligence & Deep Learning</title>
+    <!-- SEO Optimization -->
+    <meta name="description" content="Dronacharya School of Artificial Intelligence & Deep Learning, a free, one-year job-oriented diploma program by Suvidha Foundation. Launch your AI career with hands-on projects and expert mentorship.">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Import the "Inter" font for a modern look */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        /* Custom CSS variables for brand colors */
+        :root {
+            --brand-gold: #FFD700;
+            --brand-blue: #4A90E2;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            background-color: #f3f4f6;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Preloader styles for a smooth loading experience */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f3f4f6;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        }
+
+        .loader {
+            border: 6px solid #e5e7eb;
+            border-top: 6px solid var(--brand-gold);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Gradient text effect for headings */
+        .gradient-text {
+            background-image: linear-gradient(135deg, var(--brand-gold), #4facfe, #8c4dbf);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 5s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Hero section and image slider styles */
+        .hero-section {
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Canvas for particle animation */
+        #hero-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            /* Allows clicks to pass through the canvas */
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: opacity 1s ease-in-out;
+            opacity: 0;
+            transform: scale(1.05);
+            /* Zoom effect for Ken Burns animation */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-slide h1 {
+            -webkit-text-stroke: 1px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Active slide animation */
+        .hero-slide.active {
+            opacity: 1;
+            animation: kenburns-zoom-in 8s ease-out forwards;
+        }
+
+        /* Disable animation and change background-size for the static certificate slide */
+        #static-slide.active {
+            animation: none;
+            transform: scale(1);
+            background-size: contain;
+            background-color: #f3f2f0;
+        }
+
+
+        @keyframes kenburns-zoom-in {
+            from {
+                transform: scale(1.05);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        /* Text shadow for readability on images */
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Navigation buttons for the hero slider */
+        .hero-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 50; /* Z-INDEX FIX: Ensuring nav buttons are definitely on top */
+            background-color: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0.4;
+            transition: all 0.3s ease;
+        }
+
+        .hero-nav:hover {
+            background-color: rgba(0, 0, 0, 0.3);
+            transform: translateY(-50%) scale(1.1);
+            opacity: 1;
+        }
+
+        .hero-nav:active {
+            transform: translateY(-50%) scale(1.05);
+            /* Click feedback animation */
+            transition-duration: 0.1s;
+        }
+
+        #prev-slide {
+            left: 20px;
+        }
+
+        #next-slide {
+            right: 20px;
+        }
+
+        /* Scrolling company logos animation */
+        @keyframes scroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(calc(-50% - 1.5rem));
+            }
+        }
+
+        .scroller {
+            max-width: 900px;
+            margin: auto;
+            overflow: hidden;
+            -webkit-mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+            mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+        }
+
+        .scroller__inner {
+            display: flex;
+            gap: 3rem;
+            width: fit-content;
+            animation: scroll 20s linear infinite;
+        }
+
+        .scroller:hover .scroller__inner {
+            animation-play-state: paused;
+        }
+
+        /* "Free" banner for course cards */
+        .free-banner {
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            transform: rotate(45deg);
+            background-color: var(--brand-gold);
+            color: #1a202c;
+            padding: 6px 40px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            z-index: 10;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header state changes on scroll */
+        header {
+            background-color: #ffffff;
+            transition: all 0.3s ease-in-out;
+        }
+
+        header.scrolled {
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            border-color: #e5e7eb;
+        }
+
+        /* Underline animation for navigation links */
+        .nav-link {
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--brand-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Call to Action (CTA) button animation */
+        .cta-button {
+            background-image: linear-gradient(to right, var(--brand-gold) 0%, #FFC300 51%, var(--brand-gold) 100%);
+            background-size: 200% auto;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: scale(1) translateY(0);
+        }
+
+        .cta-button:hover {
+            background-position: right center;
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
+            transform: scale(1.05) translateY(-4px);
+        }
+
+        .cta-button:active {
+            transform: translateY(0px) scale(0.98);
+            box-shadow: 0 5px 10px rgba(255, 215, 0, 0.15);
+        }
+
+        /* Mobile navigation menu animation */
+        .mobile-nav {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .mobile-nav.open {
+            transform: translateX(0);
+        }
+
+        /* Fade-in and fadeInUp animations for on-scroll visibility */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* FIX: Ensure the interactive content container is definitively on top for clicks */
+        .hero-slide .slide-content-wrapper {
+            /* Now defined directly in HTML with z-index */
+            opacity: 0;
+            transition: opacity 0.5s ease-out;
+            pointer-events: none; /* Ensure it doesn't block clicks when inactive */
+            z-index: 35; /* New high z-index for active content wrapper */
+            position: absolute; /* Needs positioning to respect z-index */
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        
+        .hero-slide.active .slide-content-wrapper {
+            opacity: 1;
+            pointer-events: auto !important; /* FORCE pointer events on active slide */
+            z-index: 35 !important;
+        }
+
+
+        .hero-slide .slide-content-wrapper .container > * {
+            opacity: 0;
+        }
+
+        .hero-slide.active .slide-content-wrapper .container > * {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .hero-slide.active .slide-content-wrapper .mb-6 {
+            animation-delay: 0.2s;
+        }
+
+        .hero-slide.active .slide-content-wrapper h1 {
+            animation-delay: 0.5s;
+        }
+
+        .hero-slide.active .slide-content-wrapper p {
+            animation-delay: 0.8s;
+        }
+
+        .hero-slide.active .slide-content-wrapper .mt-10 {
+            animation-delay: 1.1s;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 3D hover effect for highlight cards */
+        .highlight-card-wrapper {
+            perspective: 1000px;
+        }
+
+        .highlight-card {
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            transform-style: preserve-3d;
+        }
+
+        .highlight-card:hover {
+            transform: rotateY(-5deg) rotateX(5deg) scale(1.03);
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Course card flip effect */
+        .course-card {
+            perspective: 1000px;
+        }
+
+        .course-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .course-card:hover .course-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .course-card-front,
+        .course-card-back {
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .course-card-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, #1e3a8a, #4a90e2);
+            color: white;
+        }
+
+        /* Timeline styles */
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: #e2e8f0;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            z-index: 1;
+        }
+
+        /* Timeline progress bar that fills on scroll */
+        #timeline-progress {
+            position: absolute;
+            width: 6px;
+            background-color: var(--brand-gold);
+            top: 0;
+            left: 50%;
+            margin-left: -3px;
+            z-index: 2;
+            height: 0;
+            transition: height 0.2s ease-out;
+        }
+
+        .timeline-container {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -17px;
+            background-color: white;
+            border: 4px solid var(--brand-gold);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 3;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-container:hover::after {
+            transform: scale(1.2);
+        }
+
+        .timeline-left {
+            left: 0;
+        }
+
+        .timeline-right {
+            left: 50%;
+        }
+
+        .timeline-right::after {
+            left: -16px;
+        }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, .1), 0 2px 4px -2px rgba(0, 0, 0, .1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, .1), 0 4px 6px -4px rgba(0, 0, 0, .1);
+        }
+
+        /* Responsive adjustments for timeline on mobile */
+        @media screen and (max-width: 768px) {
+
+            .timeline::after,
+            #timeline-progress {
+                left: 31px;
+            }
+
+            .timeline-container {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-left::after,
+            .timeline-right::after {
+                left: -16px; /* Adjusted to align with vertical line on mobile */
+            }
+
+            .timeline-right {
+                left: 0%;
+            }
+        }
+
+        /* Event card hover effect */
+        .event-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, .1), 0 4px 6px -4px rgba(0, 0, 0, .1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, .1), 0 8px 10px -6px rgba(0, 0, 0, .1);
+        }
+
+        .event-card img {
+            transition: transform 0.3s ease;
+        }
+
+        .event-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .event-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+            padding: 1.5rem;
+            color: white;
+        }
+
+        .section-heading {
+            font-weight: 800;
+            letter-spacing: -0.025em;
+        }
+
+        .page-heading {
+            padding-top: 90px;
+            /* Adjust based on new header height */
+            padding-bottom: 40px;
+            background-color: #111827;
+            color: white;
+        }
+
+        /* Mentor card interaction for social icons */
+        .mentor-card {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .mentor-card .mentor-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .mentor-card:hover .mentor-overlay {
+            transform: translateY(0);
+        }
+
+        .mentor-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 0 30px rgba(74, 144, 226, 0.4);
+        }
+
+        /* Back to top button visibility */
+        #back-to-top-btn {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        #back-to-top-btn.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Testimonial dot navigation */
+        #testimonial-dots {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #d1d5db;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .dot.active {
+            background-color: var(--brand-gold);
+        }
+
+        /* Modal styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .modal.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            width: 90%;
+            max-width: 700px;
+            position: relative;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal.visible .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #e5e7eb;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #4b5563;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+
+        .modal-close-btn:hover {
+            background-color: #d1d5db;
+            transform: rotate(90deg);
+        }
+
+        /* Smart Form Validation */
+        .form-field {
+            position: relative;
+        }
+
+        .validation-icon {
+            position: absolute;
+            top: 50%;
+            right: 1rem;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .form-field.valid .validation-icon.valid-icon,
+        .form-field.invalid .validation-icon.invalid-icon {
+            opacity: 1;
+        }
+
+        .form-field input:not([type=radio]):not([type=checkbox]).valid,
+        .form-field select.valid,
+        .form-field textarea.valid {
+            border-color: #10B981;
+            box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+        }
+
+        .form-field input:not([type=radio]):not([type=checkbox]).invalid,
+        .form-field select.invalid,
+        .form-field textarea.invalid {
+            border-color: #EF4444;
+            box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+        }
+
+        .error-message {
+            font-size: 0.8rem;
+            color: #EF4444;
+            margin-top: 0.25rem;
+            text-align: left;
+            display: none;
+        }
+
+        .form-field.invalid .error-message {
+            display: block;
+        }
+
+        /* Cookie Banner */
+        #cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(17, 24, 39, 0.95);
+            color: white;
+            padding: 1rem;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s ease-in-out;
+            transform: translateY(100%);
+        }
+
+        #cookie-banner.visible {
+            transform: translateY(0);
+        }
+
+        /* Publication & Blog card styles */
+        .content-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, .1), 0 2px 4px -2px rgba(0, 0, 0, .1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, .1), 0 4px 6px -4px rgba(0, 0, 0, .1);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 text-gray-900">
+
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+
+    <header id="main-header" class="fixed top-0 left-0 w-full z-50 p-2 bg-white">
+        <nav class="container mx-auto flex items-center justify-between">
+            <a href="#home" class="flex items-center flex-shrink-0 page-link" data-page="home">
+                <img src="https://i.ibb.co/DPxTrnv2/Dron-AILogo-1.png" alt="DronAI Logo" class="h-12">
+            </a>
+
+            <ul class="flex-grow justify-center items-center space-x-6 text-sm md:text-base hidden sm:flex">
+                <li><a href="#program" class="nav-link home-scroll">HIGHLIGHTS</a></li>
+                <li><a href="#courses" class="nav-link home-scroll">COURSE</a></li>
+                <li><a href="#timeline" class="nav-link home-scroll">TIMELINE</a></li>
+                <li><a href="#mentors" class="nav-link home-scroll">MENTORS</a></li>
+                <li><a href="#mission" class="nav-link page-link" data-page="mission">MISSION</a></li>
+                <li><a href="#publications" class="nav-link page-link" data-page="publications">PUBLICATIONS</a></li>
+                <li><a href="#resources" class="nav-link page-link" data-page="resources">RESOURCES</a></li>
+                <li><a href="#blog" class="nav-link page-link" data-page="blog">BLOG</a></li>
+                <li><a href="#career" class="nav-link page-link" data-page="career">CAREER</a></li>
+                <li><a href="#faq" class="nav-link home-scroll">FAQs</a></li>
+            </ul>
+
+            <a href="#enrollment" class="cta-button hidden sm:inline-block px-8 py-2 text-gray-900 font-semibold rounded-full shadow-lg page-link" data-page="enrollment">Enroll Now</a>
+            <div class="sm:hidden"><button id="menu-btn" class="text-gray-900 focus:outline-none"><i class="fas fa-bars text-2xl"></i></button></div>
+        </nav>
+    </header>
+
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/60 z-50 hidden"></div>
+    <div id="mobile-menu" class="mobile-nav fixed top-0 right-0 h-full w-3/4 max-w-sm bg-white shadow-lg p-6 z-[60] sm:hidden">
+        <div class="flex justify-between items-center mb-8">
+            <span class="text-xl font-bold text-gray-900">Menu</span>
+            <button id="close-btn" class="text-gray-700 focus:outline-none"><i class="fas fa-times text-2xl"></i></button>
+        </div>
+        <ul class="space-y-4">
+            <li><a href="#program" class="mobile-nav-link home-scroll">HIGHLIGHTS</a></li>
+            <li><a href="#courses" class="mobile-nav-link home-scroll">COURSE</a></li>
+            <li><a href="#timeline" class="mobile-nav-link home-scroll">TIMELINE</a></li>
+            <li><a href="#mentors" class="mobile-nav-link home-scroll">MENTORS</a></li>
+            <li><a href="#mission" class="mobile-nav-link page-link" data-page="mission">MISSION</a></li>
+            <li><a href="#publications" class="mobile-nav-link page-link" data-page="publications">PUBLICATIONS</a></li>
+            <li><a href="#resources" class="mobile-nav-link page-link" data-page="resources">RESOURCES</a></li>
+            <li><a href="#blog" class="mobile-nav-link page-link" data-page="blog">BLOG</a></li>
+            <li><a href="#career" class="mobile-nav-link page-link" data-page="career">CAREER</a></li>
+            <li><a href="#faq" class="mobile-nav-link home-scroll">FAQs</a></li>
+        </ul>
+        <a href="#enrollment" class="mobile-nav-link page-link mt-8 w-full inline-block text-center px-8 py-3 bg-[var(--brand-gold)] text-gray-900 font-semibold rounded-full shadow-lg" data-page="enrollment">Enroll Now</a>
+    </div>
+
+    <main>
+        <div id="page-home" class="page-container">
+            <section id="home" class="hero-section text-white">
+                <canvas id="hero-particles"></canvas>
+                <div class="hero-slide active" style="background: linear-gradient(135deg, rgba(3, 105, 161, 0.8), rgba(12, 74, 110, 0.8)), url('https://images.unsplash.com/photo-1620121692029-d088224ddc74?q=80&w=2832&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center; background-size: cover;">
+                    <!-- FIX: High Z-index and pointer-events:auto are forced in CSS for active slide-content-wrapper -->
+                    <div class="slide-content-wrapper absolute inset-0 flex items-center justify-center z-30"> 
+                        <div class="container mx-auto text-center px-4">
+                            <div class="mb-6"><span class="inline-block px-6 py-3 bg-white/20 border border-white/30 rounded-full text-white text-sm font-medium backdrop-blur-sm"><i class="fas fa-graduation-cap mr-2"></i>An Initiative by Suvidha Foundation</span></div>
+                            <h1 class="text-5xl md:text-7xl font-extrabold text-white max-w-6xl mx-auto leading-tight mb-6"><span class="gradient-text">Dronacharya School</span><br>of Artificial Intelligence<br>& Deep
+                                Learning</h1>
+                            <!-- UPDATED: Removed asterisks from subheading for clean presentation -->
+                            <p class="mt-6 text-lg md:text-xl max-w-3xl mx-auto text-gray-100 leading-relaxed">A free, one-year,
+                                job-oriented diploma program designed to bridge the gap between academic learning and real-world
+                                industry demands.</p>
+                            <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
+                                <a href="#enrollment" class="cta-button inline-block px-8 py-4 text-gray-900 font-semibold rounded-full text-lg shadow-lg page-link" data-page="enrollment">Enroll Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-slide" style="background: url('https://i.ibb.co/0pfLJLVD/Free.jpg') no-repeat center center; background-size: cover;">
+                    <!-- FIX: High Z-index and pointer-events:auto are forced in CSS for active slide-content-wrapper -->
+                    <div class="slide-content-wrapper absolute inset-0 flex items-center justify-center z-30">
+                        <div class="container mx-auto text-center px-4">
+                            <h1 class="text-5xl md:text-7xl font-extrabold text-white max-w-6xl mx-auto leading-tight mb-6">
+                                Welcome to <span class="gradient-text">Suvidha Foundation</span></h1>
+                            <p class="mt-6 text-lg md:text-xl max-w-3xl mx-auto text-gray-100 leading-relaxed">(Suvidha Mahila
+                                Mandal) Empowering students and transforming lives through education and skill development
+                                since 1995.</p>
+                            <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
+                                <!-- Confirmed external link functionality -->
+                                <a href="https://suvidhafoundationedutech.org/" target="_blank" rel="noopener noreferrer" class="cta-button inline-block px-8 py-4 text-gray-900 font-semibold rounded-full text-lg shadow-lg">Learn
+                                    More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 w-full p-6 bg-black/40 backdrop-blur-sm z-20">
+                        <div class="container mx-auto flex items-center justify-center md:justify-start"><img src="https://d8it4huxumps7.cloudfront.net/uploads/images/opportunity/gallery/64d4edb2bbf89_download__1_.jpeg" alt="Suvidha Foundation Logo" class="h-16 mr-6 rounded-lg"><span class="hidden md:block text-white text-xl font-bold">Suvidha Foundation (Suvidha Mahila
+                                Mandal)</span></div>
+                    </div>
+                </div>
+                <div class="hero-slide" style="background: url('https://i.ibb.co/qLTp2JCQ/s3.png') no-repeat center center; background-size: cover;">
+                    <!-- FIX: High Z-index and pointer-events:auto are forced in CSS for active slide-content-wrapper -->
+                    <div class="slide-content-wrapper absolute inset-0 flex items-center justify-center z-30">
+                        <div class="container mx-auto text-center px-4">
+                            <h1 class="text-5xl md:text-7xl font-extrabold text-white max-w-6xl mx-auto leading-tight mb-6"><span class="gradient-text">Launch Your Career</span><br> With Our Internships</h1>
+                            <p class="mt-6 text-lg md:text-xl max-w-3xl mx-auto text-gray-100 leading-relaxed">Accelerate your
+                                career with hands-on projects, expert mentorship, and opportunities to make a tangible impact
+                                in the tech industry.</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="static-slide" class="hero-slide" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://i.ibb.co/RGkLH3Hn/1.png') no-repeat center center; background-size: contain; background-color: #f3f2f0;">
+                    <!-- FIX: High Z-index and pointer-events:auto are forced in CSS for active slide-content-wrapper -->
+                    <div class="slide-content-wrapper absolute inset-0 flex items-center justify-center z-30">
+                        <div class="container mx-auto text-center px-4">
+                            <h1 class="text-5xl md:text-6xl font-extrabold text-white max-w-6xl mx-auto leading-tight mb-4 text-shadow"><span class="text-[var(--brand-gold)]">DRONAI</span> x <span class="text-white">Suvidha Foundation</span></h1>
+                            <p class="mt-4 text-lg md:text-xl max-w-3xl mx-auto text-gray-100 leading-relaxed text-shadow">This is a verified certificate, ensuring the identity and participation of the individual.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-slide" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://i.ibb.co/RpDPwqYg/S1.png') no-repeat center center; background-size: cover;">
+                    <!-- FIX: High Z-index and pointer-events:auto are forced in CSS for active slide-content-wrapper -->
+                    <div class="slide-content-wrapper absolute inset-0 flex items-center justify-center z-30">
+                        <div class="container mx-auto text-center px-4">
+                            <p class="text-lg md:text-xl max-w-3xl mx-auto text-gray-100 leading-relaxed text-shadow">
+                                At Suvidha Foundation, we are dedicated to providing free, high-quality education and creating opportunities for students across India. Your support helps us build a brighter future, one student at a time.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Navigation buttons z-index increased in CSS to 50 to ensure they are on top -->
+                <button id="prev-slide" class="hero-nav"><i class="fas fa-chevron-left fa-lg"></i></button>
+                <button id="next-slide" class="hero-nav"><i class="fas fa-chevron-right fa-lg"></i></button>
+
+            </section>
+
+            <section id="program" class="py-20 text-center bg-white">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-4xl md:text-5xl section-heading mb-12 text-gray-900 fade-in">Program Highlights</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="highlight-card-wrapper fade-in">
+                            <div class="highlight-card relative rounded-xl shadow-lg overflow-hidden bg-cover bg-center text-white min-h-[300px] flex flex-col justify-end" style="background-image: url('https://world.edu/wp-content/uploads/2019/10/Free-CollegeXX.jpg');">
+                                <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(0,0,0,0.85) 20%, rgba(0,0,0,0) 80%);">
+                                </div>
+                                <div class="relative z-10 p-6 text-left">
+                                    <h3 class="text-xl font-semibold mb-1 text-shadow">Completely Free</h3>
+                                    <p class="text-shadow text-sm">Breaking financial barriers to high-quality tech training
+                                        for all aspiring innovators.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="highlight-card-wrapper fade-in">
+                            <div class="highlight-card relative rounded-xl shadow-lg overflow-hidden bg-cover bg-center text-white min-h-[300px] flex flex-col justify-end" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKiO-QvD5KcF3mdNoEPmqMajXPvqfhQ2RSzQ&s');">
+                                <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(0,0,0,0.85) 20%, rgba(0,0,0,0) 80%);">
+                                </div>
+                                <div class="relative z-10 p-6 text-left">
+                                    <h3 class="text-xl font-semibold mb-1 text-shadow">Hands-On Learning</h3>
+                                    <p class="text-shadow text-sm">Work on live, real-world projects and train with
+                                        industry-standard tools and technologies.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="highlight-card-wrapper fade-in">
+                            <div class="highlight-card relative rounded-xl shadow-lg overflow-hidden bg-cover bg-center text-white min-h-[300px] flex flex-col justify-end" style="background-image: url('https://images.routledge.com/common/jackets/crclarge/978100348/9781003481553.jpg');">
+                                <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(0,0,0,0.85) 20%, rgba(0,0,0,0) 80%);">
+                                </div>
+                                <div class="relative z-10 p-6 text-left">
+                                    <h3 class="text-xl font-semibold mb-1 text-shadow">Research & Publication</h3>
+                                    <p class="text-shadow text-sm">Co-author papers and present innovations in reputed
+                                        journals, giving you a strong professional edge.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="highlight-card-wrapper fade-in">
+                            <div class="highlight-card relative rounded-xl shadow-lg overflow-hidden bg-contain bg-no-repeat bg-center bg-gray-800 text-white min-h-[300px] flex flex-col justify-end" style="background-image: url('https://www.brainwareuniversity.ac.in/blog/wp-content/uploads/2022/02/career-center-internships-tile.jpg');">
+                                <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(0,0,0,0.85) 20%, rgba(0,0,0,0) 80%);">
+                                </div>
+                                <div class="relative z-10 p-6 text-left">
+                                    <h3 class="text-xl font-semibold mb-1 text-shadow">Guaranteed Internship</h3>
+                                    <p class="text-shadow text-sm">Receive a guaranteed internship for all eligible
+                                        participants who successfully complete the course requirements.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="highlight-card-wrapper fade-in">
+                            <div class="highlight-card relative rounded-xl shadow-lg overflow-hidden bg-cover bg-center text-white min-h-[300px] flex flex-col justify-end" style="background-image: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+                                <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(0,0,0,0.85) 20%, rgba(0,0,0,0) 80%);">
+                                </div>
+                                <div class="relative z-10 p-6 text-left">
+                                    <h3 class="text-xl font-semibold mb-1 text-shadow">Backed by Suvidha's Legacy</h3>
+                                    <p class="text-shadow text-sm">Leverage our history of 1 lakh+ internships and 80,000+
+                                        placements for your career success.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="highlight-card-wrapper fade-in">
+                            <div class="highlight-card relative rounded-xl shadow-lg overflow-hidden bg-cover bg-center text-white min-h-[300px] flex flex-col justify-end" style="background-image: url('https://suvidhafoundationedutech.org/img/ICAIIE-2025.jpg');">
+                                <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(0,0,0,0.85) 20%, rgba(0,0,0,0) 80%);">
+                                </div>
+                                <div class="relative z-10 p-6 text-left">
+                                    <h3 class="text-xl font-semibold mb-1 text-shadow">Expert Mentorship</h3>
+                                    <p class="text-shadow text-sm">Receive one-on-one career counseling from experienced
+                                        mentors who guide you on career choices.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="courses" class="py-20 bg-white">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-4xl md:text-5xl section-heading mb-12 text-center text-gray-900 fade-in">Our Course</h2>
+                    <div class="max-w-4xl mx-auto">
+                        <div class="course-card rounded-xl shadow-lg overflow-hidden fade-in">
+                            <div class="course-card-inner">
+                                <div class="course-card-front bg-white relative">
+                                    <div class="free-banner">Free</div>
+                                    <img src="https://images.pexels.com/photos/2599244/pexels-photo-2599244.jpeg" alt="AI & Deep Learning" class="w-full h-96 object-cover">
+                                    <div class="p-6 flex flex-col flex-grow">
+                                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Artificial Intelligence & Deep Learning</h3>
+                                        <p class="text-gray-600 text-base flex-grow mb-4">A comprehensive program designed to turn you into a skilled AI and Deep Learning professional ready for the industry.</p>
+                                        <div class="border-t border-gray-200 pt-4 mb-4">
+                                            <div class="flex items-center text-sm text-gray-700 justify-between mb-2">
+                                                <span><i class="fas fa-user-tie mr-2 text-gray-500"></i>Prof. Nilesh Sahare</span>
+                                            </div>
+                                            <div class="flex items-center text-sm text-gray-700 justify-between">
+                                                <span><i class="fas fa-clock mr-2 text-gray-500"></i>1 Year</span><span><i class="fas fa-users mr-2 text-gray-500"></i>30 Students</span>
+                                            </div>
+                                        </div>
+                                        <div class="mt-auto text-center text-sm font-semibold text-gray-500">Hover for details <i class="fas fa-mouse-pointer ml-1"></i></div>
+                                    </div>
+                                </div>
+                                <div class="course-card-back rounded-xl p-6 justify-center text-center">
+                                    <h3 class="text-2xl font-bold mb-3">Key Modules</h3>
+                                    <ul class="text-lg space-y-2 text-left mb-6">
+                                        <li class="flex items-center"><i class="fas fa-check-circle mr-2 text-[var(--brand-gold)]"></i> Python for Data Science</li>
+                                        <li class="flex items-center"><i class="fas fa-check-circle mr-2 text-[var(--brand-gold)]"></i> Machine Learning Fundamentals</li>
+                                        <li class="flex items-center"><i class="fas fa-check-circle mr-2 text-[var(--brand-gold)]"></i> Neural Networks & Deep Learning</li>
+                                        <li class="flex items-center"><i class="fas fa-check-circle mr-2 text-[var(--brand-gold)]"></i> Natural Language Processing (NLP)</li>
+                                        <li class="flex items-center"><i class="fas fa-check-circle mr-2 text-[var(--brand-gold)]"></i> Computer Vision (CV)</li>
+                                        <li class="flex items-center"><i class="fas fa-check-circle mr-2 text-[var(--brand-gold)]"></i> MLOps & Deployment</li>
+                                    </ul>
+                                    <div class="flex flex-col sm:flex-row gap-4 justify-center mt-6">
+                                        <a href="#resources" class="inline-block bg-white text-gray-900 font-semibold py-3 px-6 rounded-full transition-colors hover:bg-gray-200 page-link" data-page="resources">
+                                            Download Syllabus
+                                        </a>
+                                        <a href="#enrollment" class="inline-block bg-[var(--brand-gold)] text-gray-900 font-semibold py-3 px-6 rounded-full transition-colors hover:bg-yellow-500 page-link" data-page="enrollment">
+                                            Enroll Now
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="timeline" class="py-20 bg-gray-100">
+                <div class="container mx-auto px-4">
+                    <div class="text-center mb-16 fade-in">
+                        <h2 class="text-4xl md:text-5xl section-heading text-gray-900">What You Will Learn</h2>
+                        <p class="text-gray-600 mt-4 max-w-2xl mx-auto">A month-by-month breakdown of your journey from AI
+                            novice to industry-ready professional.</p>
+                    </div>
+                    <div class="timeline">
+                        <div id="timeline-progress"></div>
+                        <div class="timeline-container timeline-left fade-in">
+                            <div class="timeline-content">
+                                <h3 class="text-lg font-bold text-gray-900">Months 1-3: Foundation & Core Concepts</h3>
+                                <p class="text-sm text-gray-600 mt-2">Build a strong base in programming, mathematics, and
+                                    the fundamental principles of machine learning that will underpin your entire AI journey.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="timeline-container timeline-right fade-in">
+                            <div class="timeline-content">
+                                <h3 class="text-lg font-bold text-gray-900">Months 4-6: Advanced Machine Learning</h3>
+                                <p class="text-sm text-gray-600 mt-2">Dive deeper into complex algorithms, model tuning, and
+                                    feature engineering. Start working on real-world datasets and competitive projects.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-container timeline-left fade-in">
+                            <div class="timeline-content">
+                                <h3 class="text-lg font-bold text-gray-900">Months 7-9: Deep Learning Specialization</h3>
+                                <p class="text-sm text-gray-600 mt-2">Master neural networks, computer vision (CV), and
+                                    natural language processing (NLP). Implement cutting-edge architectures and work on
+                                    specialized projects.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-container timeline-right fade-in">
+                            <div class="timeline-content">
+                                <h3 class="text-lg font-bold text-gray-900">Months 10-12: MLOps & Career Prep</h3>
+                                <p class="text-sm text-gray-600 mt-2">Learn to deploy, monitor, and manage models in
+                                    production. Focus on resume building, mock interviews, and portfolio development for
+                                    placements.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="about" class="py-20 bg-white">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-4xl md:text-5xl section-heading mb-8 text-center text-gray-900 fade-in">About Us</h2>
+                    <div class="flex flex-col lg:flex-row items-center lg:space-x-12">
+                        <div class="lg:w-1/2 mb-8 lg:mb-0 p-8 rounded-xl shadow-lg bg-gray-50 border border-gray-200 fade-in">
+                            <h3 class="text-xl font-semibold mb-4 text-gray-900">Suvidha Foundation - Our Roots</h3>
+                            <p class="text-gray-600 text-lg mb-4">
+                                "Suvidha Mahila Mandal", established on September 8, 1995, is a non-profit organization
+                                working to impart education among the financially challenged sections to help them realize
+                                parity in education. Through these programs, the organization aims to achieve the vision of
+                                imparting innovative education that stays with the students forever and equips them for the
+                                unforeseen future.
+                            </p>
+                            <h3 class="text-xl font-semibold mt-8 mb-4 text-gray-900">DronAI - Our Vision</h3>
+                            <div class="flex flex-col">
+                                <div id="dronai-vision-content">
+                                    <!-- Full, non-truncated content for the vision -->
+                                    <p id="dronai-vision-text" class="text-gray-600 text-lg mb-4">
+                                        At DronAI, we are shaping the future of technology by building India's AI talent pipeline—empowering the nation to take its place as Vishwaguru in the global technology landscape. Our mission is to make cutting-edge Artificial Intelligence education accessible, affordable, and impactful for aspiring innovators across the country. Our comprehensive 12-month curriculum provides hands-on experience in real-world projects, guided by industry experts, ensuring every graduate is ready for placement in top tech companies across India and globally.
+                                    </p>
+                                    <!-- UPDATED: Added link for Broucher download -->
+                                    <a href="https://drive.google.com/uc?export=download&id=1vlYFhzssiTRoD29V2ChFji8qgm3h2RVF" id="download-broucher" target="_blank" rel="noopener noreferrer" class="hidden mt-6 inline-block bg-[var(--brand-gold)] text-gray-900 font-semibold py-3 px-6 rounded-full shadow-lg transition-all hover:bg-yellow-500 self-start">
+                                        Download Broucher
+                                    </a>
+                                </div>
+                                <button id="read-more-toggle" class="mt-4 text-left text-blue-600 hover:underline transition-all self-start">Read more...</button>
+                            </div>
+                        </div>
+                        <div class="lg:w-1/2 fade-in">
+                            <img src="https://suvidhafoundationedutech.org/img/Suvidha-3.jpg" alt="Suvidha Foundation Activities" class="rounded-xl shadow-lg w-full">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="placements" class="py-20 bg-cover bg-center bg-fixed relative" style="background-image: url('https://i.ibb.co/qLTp2JCQ/s3.png');">
+                <div class="absolute inset-0 bg-gray-900/70"></div>
+                <div class="container mx-auto px-4 relative">
+                    <h2 class="text-4xl md:text-5xl section-heading mb-12 text-center text-white fade-in">Your Career &
+                        Certification Launchpad</h2>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-center text-white">
+                            <div class="p-6 bg-white/10 backdrop-blur-sm rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 fade-in">
+                                <i class="fab fa-linkedin text-5xl text-[var(--brand-gold)] mb-3"></i>
+                                <h4 class="font-semibold text-lg">LinkedIn Profile</h4>
+                                <p class="text-sm text-gray-300 mt-2">Craft a standout profile that attracts recruiters.</p>
+                            </div>
+                            <div class="p-6 bg-white/10 backdrop-blur-sm rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 fade-in" style="transition-delay: 100ms;">
+                                <i class="fas fa-file-alt text-5xl text-[var(--brand-gold)] mb-3"></i>
+                                <h4 class="font-semibold text-lg">Resume Building</h4>
+                                <p class="text-sm text-gray-300 mt-2">Create an impactful resume with personalized guidance.
+                                </p>
+                            </div>
+                            <div class="p-6 bg-white/10 backdrop-blur-sm rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 fade-in" style="transition-delay: 200ms;">
+                                <i class="fas fa-users-cog text-5xl text-[var(--brand-gold)] mb-3"></i>
+                                <h4 class="font-semibold text-lg">Mock Interviews</h4>
+                                <p class="text-sm text-gray-300 mt-2">Build confidence with industry-relevant interview
+                                    practice.</p>
+                            </div>
+                            <div class="p-6 bg-white/10 backdrop-blur-sm rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 fade-in" style="transition-delay: 300ms;">
+                                <i class="fas fa-comments text-5xl text-[var(--brand-gold)] mb-3"></i>
+                                <h4 class="font-semibold text-lg">Soft Skills</h4>
+                                <p class="text-sm text-gray-300 mt-2">Enhance your communication and teamwork abilities.</p>
+                            </div>
+                        </div>
+                        <div class="text-left bg-white/10 backdrop-blur-sm p-8 rounded-xl fade-in" style="transition-delay: 400ms;">
+                            <h3 class="text-2xl font-bold mb-4 text-white">Industry-Recognized Certification</h3>
+                            <p class="text-gray-300 mb-6 text-base">
+                                The Suvidha Foundation Certificate holds significant industry recognition, backed by a
+                                legacy of over **100,000 internships** and **80,000 successful placements**.
+                            </p>
+                            <ul class="space-y-4 text-gray-200">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-lg text-[var(--brand-gold)] mr-3 mt-1"></i>
+                                    <span>Gain a competitive edge with a certificate valued by top companies.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-lg text-[var(--brand-gold)] mr-3 mt-1"></i>
+                                    <span>Validate your skills in AI, Deep Learning, and practical project
+                                        implementation.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-lg text-[var(--brand-gold)] mr-3 mt-1"></i>
+                                    <span>Gain access to our extensive network of partner companies, industry
+                                        professionals, and alumni.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="mentors" class="py-20 bg-white">
+                <div class="container mx-auto px-4">
+                    <div class="text-center mb-12 fade-in">
+                        <h2 class="text-4xl md:text-5xl section-heading text-gray-900">Our Instructors & Mentors </h2>
+                        <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Meet the experienced team guiding our students to
+                            success.</p>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="mentor-card bg-gray-50 rounded-xl shadow-lg p-6 text-center fade-in">
+                            <img class="w-32 h-32 rounded-full mx-auto mb-4 object-cover ring-4 ring-white" src="https://suvidhafoundationedutech.org/DronAI/img/team-4.jpg" alt="Payal Sharma">
+                            <h4 class="text-xl font-bold text-gray-900">Payal Sharma</h4>
+                            <p class="text-gray-500 mb-4">Co-Founder, Suvidha Foundation</p>
+                            <div class="mentor-overlay">
+                                <div class="flex justify-center space-x-4 text-gray-600">
+                                    <a href="#" class="hover:text-[var(--brand-blue)] transition-colors"><i class="fab fa-linkedin-in text-xl"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mentor-card bg-gray-50 rounded-xl shadow-lg p-6 text-center fade-in" style="transition-delay: 100ms;">
+                            <img class="w-32 h-32 rounded-full mx-auto mb-4 object-cover ring-4 ring-white" src="https://suvidhafoundationedutech.org/DronAI/img/team-3.jpg" alt="Nilesh Sahare">
+                            <h4 class="text-xl font-bold text-gray-900">Nilesh Sahare</h4>
+                            <p class="text-gray-500 mb-4">Advisor, Suvidha Foundation</p>
+                            <div class="mentor-overlay">
+                                <div class="flex justify-center space-x-4 text-gray-600">
+                                    <a href="#" class="hover:text-[var(--brand-blue)] transition-colors"><i class="fab fa-linkedin-in text-xl"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mentor-card bg-gray-50 rounded-xl shadow-lg p-6 text-center fade-in" style="transition-delay: 200ms;">
+                            <img class="w-32 h-32 rounded-full mx-auto mb-4 object-cover ring-4 ring-white" src="https://suvidhafoundationedutech.org/DronAI/img/team-2.jpg" alt="Bhawna Sahu">
+                            <h4 class="text-xl font-bold text-gray-900">Bhawna Sahu</h4>
+                            <p class="text-gray-500 mb-4">Advisor, Suvidha Foundation</p>
+                            <div class="mentor-overlay">
+                                <div class="flex justify-center space-x-4 text-gray-600">
+                                    <a href="#" class="hover:text-[var(--brand-blue)] transition-colors"><i class="fab fa-linkedin-in text-xl"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="interns" class="py-20 bg-gray-100">
+                <div class="container mx-auto px-4 text-center">
+                    <h2 class="text-4xl md:text-5xl section-heading mb-12 text-gray-900 fade-in">Celebrating Our Interns
+                    </h2>
+                    <div class="relative max-w-3xl mx-auto fade-in">
+                        <div class="overflow-hidden rounded-xl">
+                            <div id="testimonial-slides" class="flex transition-transform duration-500 ease-in-out">
+                                <div class="flex-shrink-0 w-full p-2">
+                                    <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center h-full">
+                                        <i class="fas fa-quote-left text-3xl text-[var(--brand-gold)] mb-4"></i>
+                                        <p class="text-gray-600 italic text-center mb-6 min-h-[6rem] flex-grow">"The
+                                            practical experience I gained was instrumental in my career growth. The hands-on
+                                            projects gave me the confidence to excel as a Customer Success Engineer. A truly
+                                            invaluable platform."</p>
+                                        <div class="flex items-center mt-auto">
+                                            <img src="https://suvidhafoundationedutech.org/DronAI/img/testimonial/MrinalGupta.jpg" alt="Mrinal Gupta" class="rounded-full w-16 h-16 mr-4 object-cover flex-shrink-0">
+                                            <div class="text-left">
+                                                <h4 class="font-bold text-lg text-gray-900">Mrinal Gupta</h4>
+                                                <p class="text-gray-500 text-sm">Customer Success Engineer at DronaHQ</p>
+                                                <div class="text-[var(--brand-gold)] mt-1"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex-shrink-0 w-full p-2">
+                                    <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center h-full">
+                                        <i class="fas fa-quote-left text-3xl text-[var(--brand-gold)] mb-4"></i>
+                                        <p class="text-gray-600 italic text-center mb-6 min-h-[6rem] flex-grow">"A
+                                            significant stepping stone. The experience gave me a practical understanding
+                                            that has been incredibly helpful in my Masters studies at the University of
+                                            Arizona. Highly recommended!"</p>
+                                        <div class="flex items-center mt-auto">
+                                            <img src="https://suvidhafoundationedutech.org/DronAI/img/testimonial/KaushikKumar.jpg" alt="Kaushik Kumar" class="rounded-full w-16 h-16 mr-4 object-cover flex-shrink-0">
+                                            <div class="text-left">
+                                                <h4 class="font-bold text-lg text-gray-900">Kaushik Kumar</h4>
+                                                <p class="text-gray-500 text-sm">Masters Student at University of Arizona
+                                                </p>
+                                                <div class="text-[var(--brand-gold)] mt-1"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex-shrink-0 w-full p-2">
+                                    <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center h-full">
+                                        <i class="fas fa-quote-left text-3xl text-[var(--brand-gold)] mb-4"></i>
+                                        <p class="text-gray-600 italic text-center mb-6 min-h-[6rem] flex-grow">"The
+                                            real-world data projects were exactly what I needed to launch my career. The
+                                            skills I developed here were directly responsible for helping me secure my
+                                            position as a Data Analyst. Incredibly grateful."</p>
+                                        <div class="flex items-center mt-auto">
+                                            <img src="https://suvidhafoundationedutech.org/DronAI/img/testimonial/PrabhnoorSingh.jpg" alt="Prabhnoor Singh" class="rounded-full w-16 h-16 mr-4 object-cover flex-shrink-0">
+                                            <div class="text-left">
+                                                <h4 class="font-bold text-lg text-gray-900">Prabhnoor Singh</h4>
+                                                <p class="text-gray-500 text-sm">Data Analyst at O2 Power</p>
+                                                <div class="text-[var(--brand-gold)] mt-1"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex-shrink-0 w-full p-2">
+                                    <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center h-full">
+                                        <i class="fas fa-quote-left text-3xl text-[var(--brand-gold)] mb-4"></i>
+                                        <p class="text-600 italic text-center mb-6 min-h-[6rem] flex-grow">"A
+                                            fantastic experience. The team is incredibly supportive, and the collaborative
+                                            environment helped me build not just my technical skills but also my confidence.
+                                            A great place to start your professional journey."</p>
+                                        <div class="flex items-center mt-auto">
+                                            <img src="https://suvidhafoundationedutech.org/DronAI/img/testimonial/SohithReddy.jpg" alt="Sohith Reddy" class="rounded-full w-16 h-16 mr-4 object-cover flex-shrink-0">
+                                            <div class="text-left">
+                                                <h4 class="font-bold text-lg text-gray-900">Sohith Reddy</h4>
+                                                <p class="text-gray-500 text-sm">Intern</p>
+                                                <div class="text-[var(--brand-gold)] mt-1"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button id="prev-testimonial" class="absolute top-1/2 -left-4 transform -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-3 text-gray-800 shadow-lg focus:outline-none z-10 transition-transform hover:scale-110">
+                            <i class="fas fa-chevron-left w-5 h-5"></i>
+                        </button>
+                        <button id="next-testimonial" class="absolute top-1/2 -right-4 transform -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-3 text-gray-800 shadow-lg focus:outline-none z-10 transition-transform hover:scale-110">
+                            <i class="fas fa-chevron-right w-5 h-5"></i>
+                        </button>
+                        <div id="testimonial-dots"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="events" class="py-20 bg-gray-100">
+                <div class="container mx-auto px-4">
+                    <div class="text-center mb-12 fade-in">
+                        <h2 class="text-4xl md:text-5xl section-heading text-gray-900">Events & Workshops</h2>
+                        <p class="text-gray-600 mt-4 max-w-2xl mx-auto">From international conferences to community
+                            initiatives, our events are designed to inspire, educate, and create a lasting impact.</p>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="event-card fade-in">
+                            <img src="https://suvidhafoundationedutech.org/img/ICAIIE_2025.jpg" alt="Conference" class="w-full h-80 object-cover">
+                            <div class="event-overlay">
+                                <h4 class="text-xl font-bold">Annual AI Conference 2025</h4>
+                                <p class="text-sm mt-1">Showcasing cutting-edge research and fostering collaboration among
+                                    global AI innovators.</p>
+                            </div>
+                        </div>
+                        <div class="event-card fade-in" style="transition-delay: 100ms;">
+                            <img src="https://suvidhafoundationedutech.org/img/TreePlant.jpg" alt="Tree Plantation" class="w-full h-80 object-cover">
+                            <div class="event-overlay">
+                                <h4 class="text-xl font-bold">Community Tree Plantation</h4>
+                                <p class="text-sm mt-1">Our commitment to a sustainable future, bringing volunteers together
+                                    to restore vital green spaces.</p>
+                            </div>
+                        </div>
+                        <div class="event-card fade-in" style="transition-delay: 200ms;">
+                            <img src="https://suvidhafoundationedutech.org/img/Gallery/SuvidhaEvents.jpg" alt="Free Workshops" class="w-full h-80 object-cover">
+                            <div class="event-overlay">
+                                <h4 class="text-xl font-bold">Educational Workshops</h4>
+                                <p class="text-sm mt-1">Empowering communities with practical skills through hands-on,
+                                    expert-led educational sessions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="trust" class="py-20 text-center bg-white">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-4xl md:text-5xl section-heading mb-4 text-gray-900 fade-in">Our Legacy, Your Advantage.
+                    </h2>
+                    <div class="text-gray-600 text-xl max-w-3xl mx-auto mb-10 fade-in flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8">
+                        <div class="text-center">
+                            <div class="text-4xl font-bold text-gray-900"><span class="counter" data-target="100000">0</span>+</div>
+                            <div class="text-gray-500">Internships Provided</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-4xl font-bold text-gray-900"><span class="counter" data-target="80000">0</span>+</div>
+                            <div class="text-gray-500">Successful Placements</div>
+                        </div>
+                    </div>
+                    <div class="scroller fade-in">
+                        <div class="scroller__inner">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Wipro_Primary_Logo_Color_RGB.svg" alt="Wipro Logo" class="h-12"><img src="https://images.moneycontrol.com/static-mcnews/2023/07/TCS-LOGO.png?impolicy=website&width=1600&height=900" alt="TCS Logo" class="h-12"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM Logo" class="h-12"><img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Infosys_logo.svg" alt="Infosys Logo" class="h-12"><img src="https://upload.wikimedia.org/wikipedia/commons/4/43/Cognizant_logo_2022.svg" alt="Cognizant Logo" class="h-12"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Wipro_Primary_Logo_Color_RGB.svg" alt="Wipro Logo" class="h-12"><img src="https://images.moneycontrol.com/static-mcnews/2023/07/TCS-LOGO.png?impolicy=website&width=1600&height=900" alt="TCS Logo" class="h-12"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM Logo" class="h-12"><img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Infosys_logo.svg" alt="Infosys Logo" class="h-12"><img src="https://upload.wikimedia.org/wikipedia/commons/4/43/Cognizant_logo_2022.svg" alt="Cognizant Logo" class="h-12">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="faq" class="py-20 bg-gray-100">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-4xl md:text-5xl section-heading mb-12 text-center text-gray-900 fade-in">Frequently
+                        Asked Questions</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <div class="faq-item border border-gray-200 rounded-lg overflow-hidden bg-white fade-in">
+                            <button class="faq-question w-full text-left flex justify-between items-center p-6 hover:bg-gray-50 focus:outline-none transition-colors">
+                                <span class="font-semibold text-lg text-gray-900">Is this program really free?</span>
+                                <i class="fas fa-chevron-down transform transition-transform duration-300"></i>
+                            </button>
+                            <div class="faq-answer hidden p-6 bg-white text-gray-600 border-t border-gray-200">
+                                <p>Yes, the one-year diploma in Artificial Intelligence and Deep Learning is completely free
+                                    of tuition fees. Our mission is to make quality AI education accessible to all,
+                                    supported by the Suvidha Foundation. A refundable security deposit may be required to ensure
+                                    commitment.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item border border-gray-200 rounded-lg overflow-hidden bg-white fade-in">
+                            <button class="faq-question w-full text-left flex justify-between items-center p-6 hover:bg-gray-50 focus:outline-none transition-colors">
+                                <span class="font-semibold text-lg text-gray-900">What are the eligibility criteria?</span>
+                                <i class="fas fa-chevron-down transform transition-transform duration-300"></i>
+                            </button>
+                            <div class="faq-answer hidden p-6 bg-white text-gray-600 border-t border-gray-200">
+                                <p>The program is open to students from any academic background who have a strong interest
+                                    in pursuing a career in Artificial Intelligence. Basic computer literacy is required,
+                                    but prior coding experience is not mandatory.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item border border-gray-200 rounded-lg overflow-hidden bg-white fade-in">
+                            <button class="faq-question w-full text-left flex justify-between items-center p-6 hover:bg-gray-50 focus:outline-none transition-colors">
+                                <span class="font-semibold text-lg text-gray-900">Is prior coding experience
+                                        required?</span>
+                                <i class="fas fa-chevron-down transform transition-transform duration-300"></i>
+                            </button>
+                            <div class="faq-answer hidden p-6 bg-white text-gray-600 border-t border-gray-200">
+                                <p>No, prior coding experience is not a strict requirement. The curriculum is designed to
+                                    cover the fundamentals before moving to advanced topics. However, a willingness to learn
+                                    and a passion for technology are essential.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item border border-gray-200 rounded-lg overflow-hidden bg-white fade-in">
+                            <button class="faq-question w-full text-left flex justify-between items-center p-6 hover:bg-gray-50 focus:outline-none transition-colors">
+                                <span class="font-semibold text-lg text-gray-900">What kind of career support is
+                                        provided?</span>
+                                <i class="fas fa-chevron-down transform transition-transform duration-300"></i>
+                            </button>
+                            <div class="faq-answer hidden p-6 bg-white text-gray-600 border-t border-gray-200">
+                                <p>We offer comprehensive career support, including resume building, LinkedIn profile
+                                    optimization, mock interviews, soft skills training, and direct connections to our
+                                    extensive network of partner companies for placement assistance.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item border border-gray-200 rounded-lg overflow-hidden bg-white fade-in">
+                            <button class="faq-question w-full text-left flex justify-between items-center p-6 hover:bg-gray-50 focus:outline-none transition-colors">
+                                <span class="font-semibold text-lg text-gray-900">Will I get a certificate upon
+                                        completion?</span>
+                                <i class="fas fa-chevron-down transform transition-transform duration-300"></i>
+                            </button>
+                            <div class="faq-answer hidden p-6 bg-white text-gray-600 border-t border-gray-200">
+                                <p>Yes, upon successful completion of the program, including meeting the 90% attendance
+                                    requirement and finishing all projects, you will receive a diploma certificate from the
+                                    DronAI foundation, which holds significant recognition in the industry.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="py-20 text-center bg-gray-100">
+                <div class="container mx-auto px-4">
+                    <div class="max-w-4xl mx-auto">
+                        <div class="text-center mb-16 fade-in">
+                            <h2 class="text-5xl md:text-6xl section-heading mb-6 text-gray-900">Ready to <span class="gradient-text">Transform</span> Your Career?</h2>
+                            <p class="text-xl text-gray-600">Contact us directly using the inquiry form below.</p>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-12">
+                            <div class="p-8 rounded-xl shadow-lg bg-white border border-gray-200 text-left fade-in">
+                                <h3 class="text-2xl font-bold mb-6 text-gray-900">Get in Touch</h3>
+                                <div class="space-y-4 text-gray-700">
+                                    <div class="flex items-center space-x-4"><i class="fas fa-phone text-[var(--brand-gold)] text-2xl"></i>
+                                        <div>
+                                            <div class="font-medium text-gray-900">Phone</div>
+                                            <div class="text-gray-600">+91 98765 43210</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-4"><i class="fas fa-envelope text-[var(--brand-gold)] text-2xl"></i>
+                                        <div>
+                                            <div class="font-medium text-gray-900">Email</div>
+                                            <div class="text-gray-600">contact@suvidhafoundation.org</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-4"><i class="fas fa-map-marker-alt text-[var(--brand-gold)] text-2xl"></i>
+                                        <div>
+                                            <div class="font-medium text-gray-900">Address</div>
+                                            <div class="text-gray-600">PLNO: 50/A, FL NO. 401, C J, Forever, Central Bazar
+                                                Road, Bajaj Nagar, Nagpur Maharashtra, India, 440010</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-8 rounded-xl shadow-lg bg-white border border-gray-200 fade-in">
+                                <h3 class="text-2xl font-bold mb-6 text-gray-900">Send Us an Inquiry</h3>
+                                
+                                <!-- Inquiry Form (Working via Silent Submission) -->
+                                <form id="contact-form" class="space-y-4" 
+                                    action="https://docs.google.com/forms/d/e/1FAIpQLSc1eq8U1Qu6bMF3Jm_QxRYn1nUhD0JWi--BmaGcgKLjgeTH7w/formResponse" 
+                                    method="POST" 
+                                    target="hidden_iframe" 
+                                    onsubmit="return validateAndSubmitForm(event);">
+
+                                    <!-- Hidden iframe for silent submission. -->
+                                    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+                                    <!-- Mapped fields are left as per your previous setup -->
+                                    <div class="form-field">
+                                        <input type="text" id="form-name" name="entry.1088560188" placeholder="Full Name" required class="w-full p-4 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none transition-all">
+                                        <span class="validation-icon valid-icon text-green-500"><i class="fas fa-check-circle"></i></span><span class="validation-icon invalid-icon text-red-500"><i class="fas fa-times-circle"></i></span>
+                                        <p class="error-message">Please enter your full name.</p>
+                                    </div>
+                                    <div class="form-field">
+                                        <input type="email" id="form-email" name="entry.832106978" placeholder="Email Address" required class="w-full p-4 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none transition-all">
+                                        <span class="validation-icon valid-icon text-green-500"><i class="fas fa-check-circle"></i></span><span class="validation-icon invalid-icon text-red-500"><i class="fas fa-times-circle"></i></i></span>
+                                        <p class="error-message">Please enter a valid email address.</p>
+                                    </div>
+                                    <div class="form-field">
+                                        <input type="tel" id="form-phone" name="entry.2064026266" placeholder="Phone Number (10 digits)" required class="w-full p-4 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none transition-all">
+                                        <span class="validation-icon valid-icon text-green-500"><i class="fas fa-check-circle"></i></span><span class="validation-icon invalid-icon text-red-500"><i class="fas fa-times-circle"></i></span>
+                                        <p class="error-message">Please enter a valid 10-digit phone number.</p>
+                                    </div>
+                                    <div class="form-field">
+                                        <textarea id="form-message-text" name="entry.1795596345" placeholder="Your Message" required rows="4" class="w-full p-4 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none transition-all"></textarea>
+                                        <span class="validation-icon valid-icon text-green-500"><i class="fas fa-check-circle"></i></span><span class="validation-icon invalid-icon text-red-500"><i class="fas fa-times-circle"></i></span>
+                                        <p class="error-message">Please enter a message (at least 10 characters).</p>
+                                    </div>
+                                    <button type="submit" id="contact-submit-btn" class="cta-button w-full inline-block px-8 py-4 text-gray-900 font-semibold rounded-full text-lg shadow-lg"><i class="fas fa-paper-plane mr-2"></i>Submit Inquiry</button>
+                                </form>
+                                <div id="form-message" class="mt-4 text-sm font-medium"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- The rest of the content is placed on the same page with scroll-to links -->
+        <div id="page-mission" class="page-container hidden">
+            <div class="page-heading text-center">
+                <div class="container mx-auto px-4">
+                    <h1 class="text-5xl font-extrabold">Our Mission & Vision</h1>
+                    <p class="mt-4 text-lg text-gray-300">Shaping the future of technology and education in India.</p>
+                </div>
+            </div>
+            <section class="py-20 bg-white">
+                <div class="container mx-auto px-4">
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="fade-in">
+                            <img src="https://suvidhafoundationedutech.org/img/Suvidha-3.jpg" alt="Suvidha Foundation Team" class="rounded-xl shadow-lg w-full">
+                        </div>
+                        <div class="fade-in">
+                            <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Roots: Suvidha Foundation</h2>
+                            <p class="text-gray-600 text-lg mb-6">
+                                "Suvidha Mahila Mandal", established on September 8, 1995, is a non-profit organization working to impart education among the financially challenged sections to help them realize parity in education. Through these programs, the organization aims to achieve the vision of imparting innovative education that stays with the students forever and equips them for the unforeseen future.
+                            </p>
+                            <p class="text-gray-600 text-lg">
+                                We believe in the power of education to uplift communities and create a more equitable society. Our efforts are focused on providing not just academic knowledge, but also practical skills and mentorship to ensure our students can thrive in their personal and professional lives.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="py-20 bg-gray-50">
+                <div class="container mx-auto px-4">
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="fade-in md:order-2">
+                            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="AI Innovation" class="rounded-xl shadow-lg w-full">
+                        </div>
+                        <div class="fade-in md:order-1">
+                            <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Vision: DronAI</h2>
+                            <p class="text-gray-600 text-lg mb-6">
+                                At DronAI, we are shaping the future of technology by building India's AI talent pipeline—empowering the nation to take its place as Vishwaguru in the global technology landscape. Our mission is to make cutting-edge Artificial Intelligence education accessible, affordable, and impactful for aspiring innovators across the country.
+                            </p>
+                            <ul class="space-y-4 text-gray-700">
+                                <li class="flex items-start"><i class="fas fa-check-circle text-lg text-[var(--brand-gold)] mr-3 mt-1"></i><span>To democratize AI education and make it available to every corner of India.</span></li>
+                                <li class="flex items-start"><i class="fas fa-check-circle text-lg text-[var(--brand-gold)] mr-3 mt-1"></i><span>To foster a culture of research, innovation, and entrepreneurship in the field of AI.</span></li>
+                                <li class="flex items-start"><i class="fas fa-check-circle text-lg text-[var(--brand-gold)] mr-3 mt-1"></i><span>To create a robust ecosystem of students, mentors, and industry partners to drive technological advancement.</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="page-publications" class="page-container hidden">
+            <div class="page-heading text-center">
+                <div class="container mx-auto px-4">
+                    <h1 class="text-5xl font-extrabold">Research & Publications</h1>
+                    <p class="mt-4 text-lg text-gray-300">Contributing to the global knowledge base of Artificial Intelligence.</p>
+                </div>
+            </div>
+            <section class="py-20 bg-gray-50">
+                <div class="container mx-auto px-4">
+                    <div class="max-w-4xl mx-auto space-y-8">
+                        <div class="content-card p-6 fade-in">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Advancements in Neural Network Architectures for Computer Vision</h3>
+                            <p class="text-sm text-gray-500 mb-3">Published in: International Journal of AI Research | Jan 2024</p>
+                            <p class="text-gray-600 mb-4">This paper explores novel convolutional neural network (CNN) models that achieve state-of-the-art results on benchmark image recognition tasks while maintaining computational efficiency.</p>
+                            <!-- PLACEHOLDER LINK -->
+                            <a href="#" class="font-semibold text-blue-600 hover:underline">Read Paper <i class="fas fa-arrow-right ml-1"></i></a>
+                        </div>
+                        <div class="content-card p-6 fade-in">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Ethical Considerations in the Deployment of Large Language Models</h3>
+                            <p class="text-sm text-gray-500 mb-3">Published in: Journal of Tech Ethics | Dec 2023</p>
+                            <p class="text-gray-600 mb-4">An analysis of the potential biases and societal impacts of large language models (LLMs), proposing a framework for responsible development and deployment.</p>
+                            <!-- PLACEHOLDER LINK -->
+                            <a href="#" class="font-semibold text-blue-600 hover:underline">Read Paper <i class="fas fa-arrow-right ml-1"></i></a>
+                        </div>
+                        <div class="content-card p-6 fade-in">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Real-Time Anomaly Detection in IoT Networks using Unsupervised Learning</h3>
+                            <p class="text-sm text-gray-500 mb-3">Conference: IEEE Symposium on AI & Security | Oct 2023</p>
+                            <p class="text-gray-600 mb-4">We present an unsupervised machine learning model capable of detecting network intrusions and anomalies in Internet of Things (IoT) device data with high accuracy and low latency.</p>
+                            <!-- PLACEHOLDER LINK -->
+                            <a href="#" class="font-semibold text-blue-600 hover:underline">View Proceedings <i class="fas fa-arrow-right ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="page-resources" class="page-container hidden">
+            <div class="page-heading text-center">
+                <div class="container mx-auto px-4">
+                    <h1 class="text-5xl font-extrabold">Resources & Documents</h1>
+                    <p class="mt-4 text-lg text-gray-300">Access our curriculum, policies, and other important information.</p>
+                </div>
+            </div>
+            <section class="py-20 bg-gray-50">
+                <div class="container mx-auto px-4">
+                    <div class="max-w-3xl mx-auto grid sm:grid-cols-2 gap-8">
+                        <!-- ACTION REQUIRED: This link needs the SYLLABUS URL -->
+                        <a href="#" class="content-card p-6 text-center fade-in" onclick="showComingSoonMessage('Syllabus')">
+                            <i class="fas fa-book-open text-5xl text-[var(--brand-gold)] mb-4"></i>
+                            <h3 class="text-xl font-bold text-gray-900">Download Syllabus</h3>
+                            <p class="text-gray-600 mt-2">Get the detailed, month-by-month curriculum for our AI & Deep Learning program.</p>
+                        </a>
+                        <button class="content-card p-6 text-center fade-in" onclick="document.getElementById('terms-modal').classList.remove('hidden'); setTimeout(() => document.getElementById('terms-modal').classList.add('visible'), 10);">
+                            <i class="fas fa-file-contract text-5xl text-[var(--brand-gold)] mb-4"></i>
+                            <h3 class="text-xl font-bold text-gray-900">Terms & Conditions</h3>
+                            <p class="text-gray-600 mt-2">Read the terms and conditions for enrollment and participation in our programs.</p>
+                        </button>
+                        <!-- PLACEHOLDER LINK: Needs Policy URL -->
+                        <a href="#" class="content-card p-6 text-center fade-in" onclick="showComingSoonMessage('Privacy Policy')">
+                            <i class="fas fa-user-shield text-5xl text-[var(--brand-gold)] mb-4"></i>
+                            <h3 class="text-xl font-bold text-gray-900">Privacy Policy</h3>
+                            <p class="text-gray-600 mt-2">Learn how we collect, use, and protect your personal information.</p>
+                        </a>
+                        <!-- PLACEHOLDER LINK: Needs Handbook URL -->
+                        <a href="#" class="content-card p-6 text-center fade-in" onclick="showComingSoonMessage('Student Handbook')">
+                            <i class="fas fa-user-graduate text-5xl text-[var(--brand-gold)] mb-4"></i>
+                            <h3 class="text-xl font-bold text-gray-900">Student Handbook</h3>
+                            <p class="text-gray-600 mt-2">A guide to our school's policies, procedures, and student life.</p>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="page-blog" class="page-container hidden">
+            <div class="page-heading text-center">
+                <div class="container mx-auto px-4">
+                    <h1 class="text-5xl font-extrabold">DronAI Blog</h1>
+                    <p class="mt-4 text-lg text-gray-300">News, insights, and stories from the world of AI and DronAI.</p>
+                </div>
+            </div>
+            <section class="py-20 bg-gray-50">
+                <div class="container mx-auto px-4">
+                    <div class="grid lg:grid-cols-3 gap-8">
+                        <div class="content-card overflow-hidden fade-in">
+                            <img src="https://images.unsplash.com/photo-1677756119517-756a188d2d94?q=80&w=2832&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="AI future" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <p class="text-sm text-gray-500 mb-2">March 15, 2024</p>
+                                <h3 class="text-xl font-bold text-gray-900 mb-3">The Future of Generative AI: What to Expect in the Next 5 Years</h3>
+                                <p class="text-gray-600 mb-4">Generative AI has taken the world by storm, but what's next? We explore upcoming trends...</p>
+                                <a href="#" class="font-semibold text-blue-600 hover:underline">Read More &rarr;</a>
+                            </div>
+                        </div>
+                        <div class="content-card overflow-hidden fade-in">
+                            <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Student project" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <p class="text-sm text-gray-500 mb-2">March 02, 2024</p>
+                                <h3 class="text-xl font-bold text-gray-900 mb-3">Student Spotlight: Building a Sign Language Translator</h3>
+                                <p class="text-gray-600 mb-4">Meet Priya Sharma, a DronAI student who developed a real-time sign language translation app...</p>
+                                <a href="#" class="font-semibold text-blue-600 hover:underline">Read More &rarr;</a>
+                            </div>
+                        </div>
+                        <div class="content-card overflow-hidden fade-in">
+                            <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Mentorship" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <p class="text-sm text-gray-500 mb-2">February 21, 2024</p>
+                                <h3 class="text-xl font-bold text-gray-900 mb-3">The Power of Mentorship in a Tech Career</h3>
+                                <p class="text-gray-600 mb-4">Why having a mentor is crucial for navigating the fast-paced world of technology and AI...</p>
+                                <a href="#" class="font-semibold text-blue-600 hover:underline">Read More &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="page-career" class="page-container hidden">
+            <div class="page-heading text-center">
+                <div class="container mx-auto px-4">
+                    <h1 class="text-5xl font-extrabold">Careers at DronAI</h1>
+                    <p class="mt-4 text-lg text-gray-300">Join our mission to shape the future of AI education.</p>
+                </div>
+            </div>
+            <section class="py-20 bg-white">
+                <div class="container mx-auto px-4">
+                    <div class="max-w-4xl mx-auto">
+                        <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Current Openings</h2>
+                        <div class="space-y-6">
+                            <div class="content-card p-6 fade-in">
+                                <div class="flex flex-col sm:flex-row justify-between sm:items-center">
+                                    <div>
+                                        <h3 class="text-xl font-bold text-gray-900">AI/ML Instructor</h3>
+                                        <p class="text-gray-500">Full-time | Remote/On-site</p>
+                                    </div>
+                                    <!-- PLACEHOLDER LINK: Needs Application URL -->
+                                    <a href="#" class="cta-button mt-4 sm:mt-0 inline-block px-6 py-2 text-gray-900 font-semibold rounded-full shadow-lg text-center" onclick="showComingSoonMessage('Application Portal')">Apply Now</a>
+                                </div>
+                                <p class="text-gray-600 mt-4">We are looking for an experienced AI/ML professional with a passion for teaching and mentorship. You will be responsible for delivering our curriculum and guiding students through hands-on projects.</p>
+                            </div>
+                            <div class="content-card p-6 fade-in">
+                                <div class="flex flex-col sm:flex-row justify-between sm:items-center">
+                                    <div>
+                                        <h3 class="text-xl font-bold text-gray-900">Curriculum Developer</h3>
+                                        <p class="text-gray-500">Part-time | Remote</p>
+                                    </div>
+                                    <!-- PLACEHOLDER LINK: Needs Application URL -->
+                                    <a href="#" class="cta-button mt-4 sm:mt-0 inline-block px-6 py-2 text-gray-900 font-semibold rounded-full shadow-lg text-center" onclick="showComingSoonMessage('Application Portal')">Apply Now</a>
+                                </div>
+                                <p class="text-gray-600 mt-4">Help us design and update our cutting-edge AI curriculum. Must have a deep understanding of the latest industry trends and technologies.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="page-enrollment" class="page-container hidden">
+            <div class="page-heading text-center">
+                <div class="container mx-auto px-4">
+                    <h1 class="text-5xl font-extrabold">Enrollment Application</h1>
+                    <p class="mt-4 text-lg text-gray-300">Take the first step towards your future in AI. Fill out the form below.</p>
+                </div>
+            </div>
+            <section class="py-20 bg-gray-50">
+                <div class="container mx-auto px-4">
+                    <div class="max-w-6xl mx-auto p-4 md:p-8 bg-white rounded-xl shadow-lg border border-gray-200">
+                        <h3 class="text-2xl font-bold mb-6 text-gray-900 text-center">One-Year AI Diploma Application</h3>
+                        
+                        <div class="text-center text-gray-600 mb-4">
+                            <p>To ensure guaranteed enrollment submission, please fill out the official form below. If the embedded form fails to load, please <a href="https://docs.google.com/forms/d/e/1FAIpQLScIth8AvrzJ-aRkF-S_xD7qRbCRu-0KOs3BmyqKMt29qn6Dxg/viewform?usp=sf_link" target="_blank" class="text-blue-600 hover:underline">click here to open the form directly</a> in a new window.</p>
+                        </div>
+
+                        <!-- EMBEDDED GOOGLE FORM - REVERTED AS REQUESTED -->
+                        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScIth8AvrzJ-aRkF-S_xD7qRbCRu-0KOs3BmyqKMt29qn6Dxg/viewform?embedded=true" 
+                                width="100%" 
+                                height="1500" 
+                                frameborder="0" 
+                                marginheight="0" 
+                                marginwidth="0" 
+                                class="rounded-xl block mx-auto border border-gray-300 shadow-inner"
+                                title="Dronacharya Enrollment Form">
+                            Loading…
+                        </iframe>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto py-12 px-4">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
+                <div>
+                    <h3 class="font-bold text-lg mb-4">DronAI</h3>
+                    <p class="text-gray-400 text-sm">Empowering the next generation of AI innovators. An initiative by
+                        Suvidha Foundation.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Quick Links</h3>
+                    <ul class="text-gray-400 text-sm space-y-2">
+                        <li><a href="#home" class="hover:text-[var(--brand-gold)] page-link" data-page="home">Home</a></li>
+                        <li><a href="#mission" class="hover:text-[var(--brand-gold)] page-link" data-page="mission">Mission</a></li>
+                        <li><a href="#blog" class="hover:text-[var(--brand-gold)] page-link" data-page="blog">Blog</a></li>
+                        <li><a href="#career" class="hover:text-[var(--brand-gold)] page-link" data-page="career">Career</a></li>
+                        <li><a href="#contact" class="hover:text-[var(--brand-gold)] home-scroll">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Contact Info</h3>
+                    <address class="text-gray-400 text-sm not-italic space-y-2">
+                        <p><i class="fas fa-map-marker-alt mr-2"></i>Nagpur, Maharashtra, India</p>
+                        <p><i class="fas fa-envelope mr-2"></i>contact@suvidhafoundation.org</p>
+                    </address>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Our Newsletter</h3>
+                    <p class="text-gray-400 text-sm mb-4">Subscribe to our newsletter to get our latest updates.</p>
+                    <!-- ACTION REQUIRED: This form needs an endpoint/action URL -->
+                    <form action="#" class="flex"> 
+                        <input type="email" placeholder="Email address" class="w-full px-4 py-2 rounded-l-md text-gray-800 focus:outline-none">
+                        <button class="bg-[var(--brand-gold)] text-gray-900 px-4 rounded-r-md font-semibold hover:bg-yellow-500 transition-colors"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Follow Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/suvidhamahilamandal" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-[var(--brand-gold)]"><i class="fab fa-facebook-f text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-[var(--brand-gold)]"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="https://in.linkedin.com/company/suvidha-foundation" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-[var(--brand-gold)]"><i class="fab fa-linkedin-in text-xl"></i></a>
+                        <a href="https://www.instagram.com/suvidha_mahila_mandal/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-[var(--brand-gold)]"><i class="fab fa-instagram text-xl"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-700 text-center text-gray-500 text-sm">
+                <p>&copy; 2025 Dronacharya School of AI. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals for messages and terms -->
+    <div id="custom-message-box" class="modal hidden">
+        <div class="modal-content text-center">
+            <button id="close-message-btn" class="modal-close-btn"><i class="fas fa-times"></i></button>
+            <i class="fas fa-info-circle text-5xl text-blue-500 mb-4"></i>
+            <h4 class="text-xl font-bold mb-2">Notice</h4>
+            <p id="message-content" class="text-gray-700"></p>
+        </div>
+    </div>
+
+    <div id="terms-modal" class="modal hidden">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="hideModal('terms-modal')"><i class="fas fa-times"></i></button>
+            <h2 class="text-3xl font-bold text-gray-900 mb-4 text-center">Terms & Conditions</h2>
+            <div class="prose max-w-none text-gray-700">
+                <p>Welcome to Dronacharya School of Artificial Intelligence & Deep Learning, an initiative by Suvidha Foundation. By enrolling in our program, you agree to comply with and be bound by the following terms and conditions of use, which, together with our privacy policy, govern the relationship between you and DronAI. If you disagree with any part of these terms and conditions, please do not use our website or services.</p>
+
+                <h3 class="text-xl font-bold mt-6 mb-2">1. Program Eligibility & Enrollment</h3>
+                <ul class="list-disc list-inside">
+                    <li>The program is open to all individuals with a passion for AI, regardless of academic background.</li>
+                    <li>A refundable security deposit may be required to secure your spot and demonstrate commitment. This deposit will be returned upon successful completion of the program.</li>
+                    <li>Enrollment is subject to availability and successful completion of the application process.</li>
+                </ul>
+
+                <h3 class="text-xl font-bold mt-6 mb-2">2. Code of Conduct</h3>
+                <ul class="list-disc list-inside">
+                    <li>Students are expected to maintain a respectful and professional demeanor at all times.</li>
+                    <li>Cheating, plagiarism, or any form of academic dishonesty will not be tolerated and may lead to immediate expulsion without a refund of the security deposit.</li>
+                    <li>Students must adhere to a minimum attendance requirement, as specified by the program, to be eligible for the final diploma certificate and internship placement.</li>
+                </ul>
+
+                <h3 class="text-xl font-bold mt-6 mb-2">3. Intellectual Property</h3>
+                <ul class="list-disc list-inside">
+                    <li>All course materials, including lectures, presentations, and code examples, are the intellectual property of DronAI and Suvidha Foundation. They are for your personal use only and may not be distributed or reproduced without explicit permission.</li>
+                    <li>Any projects or research papers developed during the program remain the intellectual property of the student, but DronAI reserves the right to use them for promotional purposes with proper attribution.</li>
+                </ul>
+
+                <h3 class="text-xl font-bold mt-6 mb-2">4. Disclaimer of Warranties</h3>
+                <ul class="list-disc list-inside">
+                    <li>While we strive to provide the highest quality education and career support, we do not guarantee specific employment outcomes or salary levels.</li>
+                    <li>The program's content and structure may be subject to change to keep up with industry advancements.</li>
+                </ul>
+
+                <h3 class="text-xl font-bold mt-6 mb-2">5. Limitation of Liability</h3>
+                <ul class="list-disc list-inside">
+                    <li>In no event will DronAI or Suvidha Foundation be liable for any indirect, special, incidental, or consequential damages arising out of or in connection with your use of our services.</li>
+                </ul>
+
+                <h3 class="text-xl font-bold mt-6 mb-2">6. Governing Law</h3>
+                <p>These terms and conditions are governed by and construed in accordance with the laws of Nagpur, Maharashtra, India.</p>
+
+                <p class="mt-6 text-sm text-center text-gray-500">Last updated: September 24, 2025</p>
+            </div>
+        </div>
+    </div>
+
+
+    <button id="back-to-top-btn" class="fixed bottom-5 right-5 z-50 bg-[var(--brand-gold)] text-gray-900 rounded-full h-12 w-12 flex items-center justify-center shadow-lg hover:bg-yellow-500 transition-all"><i class="fas fa-arrow-up"></i></button>
+
+    <div id="exit-intent-modal" class="modal hidden">
+        <div class="modal-content text-center">
+            <button class="modal-close-btn" onclick="hideModal('exit-intent-modal')"><i class="fas fa-times"></i></button>
+            <i class="fas fa-hourglass-start text-5xl text-[var(--brand-gold)] mb-4"></i>
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Wait! Don't Leave...</h3>
+            <p class="text-gray-600 mb-6">Your journey into the future of AI is just one click away. Don't miss this
+                opportunity.</p>
+            <a href="#enrollment" id="modal-cta" class="cta-button w-full inline-block px-8 py-4 text-gray-900 font-semibold rounded-full text-lg shadow-lg page-link" data-page="enrollment">Claim
+                Your Free Spot</a>
+        </div>
+    </div>
+
+    <div id="cookie-banner" class="hidden">
+        <div class="container mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="text-sm">We use cookies to ensure you get the best experience on our website. By continuing to browse, you agree to our use of cookies.</p>
+            <button id="accept-cookies" class="bg-yellow-400 text-gray-900 font-bold py-2 px-6 rounded-full hover:bg-yellow-500 transition-colors flex-shrink-0">Accept</button>
+        </div>
+    </div>
+
+
+    <script>
+        // GLOBAL FLAG DEFINITION: This is essential for the submission delay logic.
+        let submitted = false;
+
+        // --- Inquiry Form Handlers (Contact Page) ---
+        function formSuccess() {
+            console.log("Inquiry form submission success handler triggered.");
+            const form = document.getElementById('contact-form');
+            const messageDiv = document.getElementById('form-message');
+            const submitButton = document.getElementById('contact-submit-btn');
+
+            // 1. Show Success Message
+            messageDiv.textContent = 'Thank you! We have received your message and will respond shortly.';
+            messageDiv.className = 'mt-4 text-sm font-medium text-center text-green-600';
+            
+            // 2. Reset Form UI
+            form.reset();
+            resetFormValidationState(form);
+            
+            // 3. Reset Button State
+            submitButton.disabled = false;
+            submitButton.innerHTML = '<i class="fas fa-paper-plane mr-2"></i>Submit Inquiry';
+            
+            // Clear message after a delay
+            setTimeout(() => {
+                messageDiv.textContent = '';
+            }, 6000);
+
+            // 4. Reset Global Flag
+            submitted = false;
+        }
+
+        // --- Universal Utilities ---
+
+        function resetFormValidationState(form) {
+             form.querySelectorAll('.form-field').forEach(field => {
+                const input = field.querySelector('input, textarea, select');
+                if (input) {
+                    input.classList.remove('valid', 'invalid');
+                }
+                field.classList.remove('valid', 'invalid');
+            });
+        }
+
+        // We declare the general iframe handler once. It checks which form submitted.
+        const iframeLoadHandler = () => {
+            console.log("Iframe finished loading.");
+            const hiddenIframeContact = document.getElementById('hidden_iframe');
+            
+            // Only the Contact Form uses a hidden iframe and the 'submitted' flag now.
+            if (submitted) {
+                // Check if the contact iframe was the one that triggered the load
+                formSuccess();
+                if (hiddenIframeContact) hiddenIframeContact.removeEventListener('load', iframeLoadHandler);
+            }
+        };
+
+        function validateAndSubmitForm(e) {
+            // Function to validate a single field (used only by contact form now)
+            const validateField = (field) => {
+                const parent = field.closest('.form-field');
+                if (!parent) return true;
+                let isValid = false;
+                
+                if (field.type === 'email') {
+                    isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value);
+                } else if (field.type === 'tel') {
+                    // Basic 10 digit check for phone number
+                    isValid = /^\d{10}$/.test(field.value);
+                } else if (field.id === 'form-message-text') {
+                    // Check Inquiry message length
+                    isValid = field.value.trim().length >= 10;
+                } else {
+                    isValid = field.value.trim() !== '';
+                }
+
+                // Apply validation classes for styling
+                const fieldInput = parent.querySelector('input:not([type=checkbox]), textarea, select');
+                if (fieldInput) {
+                    fieldInput.classList.toggle('valid', isValid);
+                    fieldInput.classList.toggle('invalid', !isValid);
+                }
+                
+                // For the whole field container
+                parent.classList.toggle('valid', isValid);
+                parent.classList.toggle('invalid', !isValid);
+                return isValid;
+            };
+
+            e.preventDefault();
+            const form = document.getElementById('contact-form');
+            const submitButton = document.getElementById('contact-submit-btn');
+            const messageDiv = document.getElementById('form-message');
+            
+            const inputs = form.querySelectorAll('input[required][name^="entry."], textarea[required][name^="entry."], select[required][name^="entry."]');
+            let isFormValid = true;
+
+            // Run validation on all required fields
+            inputs.forEach(input => {
+                if (!validateField(input)) {
+                    isFormValid = false;
+                }
+            });
+
+            if (isFormValid) {
+                console.log(`Form contact-form validated successfully. Initiating silent submission.`);
+                
+                // UX feedback before submitting
+                submitButton.disabled = true;
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Submitting...';
+
+                // 1. Set global flag
+                submitted = true;
+                
+                // 2. Attach the load listener *before* submission
+                const hiddenIframe = document.getElementById('hidden_iframe');
+                if (hiddenIframe) {
+                    hiddenIframe.removeEventListener('load', iframeLoadHandler); 
+                    hiddenIframe.addEventListener('load', iframeLoadHandler);
+                }
+                
+                // 3. Submit form silently to the Google endpoint
+                form.submit();
+                
+            } else {
+                messageDiv.textContent = 'Please correct the highlighted errors before submitting.';
+                messageDiv.className = 'mt-4 text-sm font-medium text-center text-red-600';
+                setTimeout(() => {
+                    messageDiv.textContent = '';
+                }, 5000);
+            }
+
+            return false;
+        }
+
+
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("DOM fully loaded and parsed.");
+
+            // --- Window and Modal Helpers ---
+            window.showModal = function (modalId, message = '') {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    const messageContent = modal.querySelector('#message-content');
+                    if (messageContent && message) {
+                        messageContent.textContent = message;
+                    }
+                    modal.classList.remove('hidden');
+                    setTimeout(() => modal.classList.add('visible'), 10);
+                }
+            }
+
+            window.hideModal = function (modalId) {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.classList.remove('visible');
+                    setTimeout(() => modal.classList.add('hidden'), 300);
+                }
+            }
+            
+            // Event listeners for modals
+            document.getElementById('close-message-btn')?.addEventListener('click', () => hideModal('custom-message-box'));
+            document.getElementById('custom-message-box')?.addEventListener('click', (e) => {
+                if (e.target.id === 'custom-message-box') {
+                    hideModal('custom-message-box');
+                }
+            });
+            window.showComingSoonMessage = (item) => showModal('custom-message-box', `${item} is coming soon! Check back later for updates.`);
+
+            // --- Page Navigation Logic ---
+            const pageLinks = document.querySelectorAll('.page-link');
+            const homeScrollLinks = document.querySelectorAll('.home-scroll');
+            const pageContainers = document.querySelectorAll('.page-container');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+
+            const closeMenu = () => {
+                mobileMenu.classList.remove('open');
+                mobileMenuOverlay.classList.add('hidden');
+            };
+
+            function showPage(pageId, scrollToSection = null) {
+                pageContainers.forEach(page => {
+                    page.classList.add('hidden');
+                });
+
+                const activePage = document.getElementById(pageId);
+                if (activePage) {
+                    activePage.classList.remove('hidden');
+                } else {
+                    document.getElementById('page-home').classList.remove('hidden');
+                }
+
+                const pageName = pageId.replace('page-', '');
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.classList.contains('page-link') && link.dataset.page === pageName) {
+                        link.classList.add('active');
+                    }
+                });
+
+                if (pageName === 'home') {
+                    navLinks.forEach(link => link.classList.remove('active'));
+                }
+
+                if (scrollToSection) {
+                    setTimeout(() => {
+                        const target = document.querySelector(scrollToSection);
+                        const header = document.getElementById('main-header');
+                        if (target && header) {
+                            const headerHeight = header.offsetHeight;
+                            const targetPosition = target.getBoundingClientRect().top + window.scrollY - headerHeight;
+                            window.scrollTo({
+                                top: targetPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }, 50);
+                } else {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+
+            pageLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const pageId = 'page-' + link.dataset.page;
+                    showPage(pageId);
+                    closeMenu();
+                });
+            });
+
+            homeScrollLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    showPage('page-home', targetId);
+                    closeMenu();
+                });
+            });
+
+            // Show home page on initial load
+            showPage('page-home');
+
+
+            // Hide the preloader when the page is fully loaded
+            const preloader = document.getElementById('preloader');
+            window.addEventListener('load', () => {
+                preloader.style.opacity = '0';
+                preloader.style.visibility = 'hidden';
+            });
+
+            // Header class change on scroll
+            const header = document.querySelector('header');
+            window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 50));
+
+            // Mobile menu functionality
+            const menuBtn = document.getElementById('menu-btn');
+            const closeBtn = document.getElementById('close-btn');
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.add('open');
+                mobileMenuOverlay.classList.remove('hidden');
+            });
+            closeBtn.addEventListener('click', closeMenu);
+            mobileMenuOverlay.addEventListener('click', closeMenu);
+
+            // Hero slider functionality
+            const slides = document.querySelectorAll('.hero-slide');
+            const prevSlideBtn = document.getElementById('prev-slide');
+            const nextSlideBtn = document.getElementById('next-slide');
+            const heroParticles = document.getElementById('hero-particles');
+            let currentSlide = 0;
+
+            function goToSlide(n) {
+                if (slides.length > 0) {
+                    slides[currentSlide].classList.remove('active');
+                    currentSlide = (n + slides.length) % slides.length;
+                    slides[currentSlide].classList.add('active');
+
+                    // Animation adjustment for new slide content wrapper
+                    document.querySelectorAll('.slide-content-wrapper').forEach(wrapper => {
+                        wrapper.style.opacity = '0';
+                        wrapper.style.pointerEvents = 'none';
+                    });
+                    const activeWrapper = slides[currentSlide].querySelector('.slide-content-wrapper');
+                    if (activeWrapper) {
+                        activeWrapper.style.opacity = '1';
+                        activeWrapper.style.pointerEvents = 'auto'; // Re-enable pointer events
+
+                        // Re-trigger fade-in animations on content after switching slide
+                        activeWrapper.querySelectorAll('.container > *').forEach(el => {
+                            el.style.animation = 'none';
+                            void el.offsetHeight; // Trigger reflow
+                            el.style.animation = null;
+                        });
+                    }
+
+
+                    if (heroParticles) {
+                        if (currentSlide === 0) {
+                            heroParticles.style.display = 'block';
+                        } else {
+                            heroParticles.style.display = 'none';
+                        }
+                    }
+                }
+            }
+            // Start the auto-slide timer
+            let slideTimer = setInterval(() => goToSlide(currentSlide + 1), 7000);
+            const resetSlideTimer = () => {
+                clearInterval(slideTimer);
+                slideTimer = setInterval(() => goToSlide(currentSlide + 1), 7000);
+            };
+            nextSlideBtn.addEventListener('click', () => {
+                goToSlide(currentSlide + 1);
+                resetSlideTimer();
+            });
+            prevSlideBtn.addEventListener('click', () => {
+                goToSlide(currentSlide - 1);
+                resetSlideTimer();
+            });
+
+            // Back to top button visibility
+            const backToTopBtn = document.getElementById('back-to-top-btn');
+            window.addEventListener('scroll', () => {
+                backToTopBtn.classList.toggle('visible', window.scrollY > 300);
+            });
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // EXIT-INTENT MODAL
+            const exitModal = document.getElementById('exit-intent-modal');
+            if (exitModal) {
+                const modalCta = document.getElementById('modal-cta');
+                const handleMouseOut = (e) => {
+                    if (e.clientY <= 0 && !sessionStorage.getItem('modalShown')) {
+                        showModal('exit-intent-modal');
+                        sessionStorage.setItem('modalShown', 'true');
+                        document.removeEventListener('mouseout', handleMouseOut);
+                    }
+                };
+                document.addEventListener('mouseout', handleMouseOut);
+                modalCta.addEventListener('click', () => hideModal('exit-intent-modal'));
+            }
+
+            // Intersection Observer for fade-in animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Canvas particle animation
+            const canvas = document.getElementById('hero-particles');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                let particlesArray;
+
+                class Particle {
+                    constructor(x, y, directionX, directionY, size) {
+                        this.x = x;
+                        this.y = y;
+                        this.directionX = directionX;
+                        this.directionY = directionY;
+                        this.size = size;
+                    }
+                    draw() {
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                        ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+                        ctx.fill();
+                    }
+                    update() {
+                        if (this.x > canvas.width || this.x < 0) {
+                            this.directionX = -this.directionX;
+                        }
+                        if (this.y > canvas.height || this.y < 0) {
+                            this.directionY = -this.directionY;
+                        }
+                        this.x += this.directionX;
+                        this.y += this.directionY;
+                        this.draw();
+                    }
+                }
+
+                function init() {
+                    particlesArray = [];
+                    let numberOfParticles = (canvas.height * canvas.width) / 9000;
+                    for (let i = 0; i < numberOfParticles; i++) {
+                        let size = (Math.random() * 2) + 1;
+                        let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                        let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+                        let directionX = (Math.random() * .4) - .2;
+                        let directionY = (Math.random() * .4) - .2;
+                        particlesArray.push(new Particle(x, y, directionX, directionY, size));
+                    }
+                }
+
+                function animate() {
+                    requestAnimationFrame(animate);
+                    ctx.clearRect(0, 0, innerWidth, innerHeight);
+                    for (let i = 0; i < particlesArray.length; i++) {
+                        particlesArray[i].update();
+                    }
+                }
+                init();
+                animate();
+                window.addEventListener('resize', () => {
+                    canvas.width = innerWidth;
+                    canvas.height = innerHeight;
+                    init();
+                });
+            }
+
+            // DYNAMIC COUNTER
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const counters = entry.target.querySelectorAll('.counter');
+                    if (entry.isIntersecting) {
+                        counters.forEach(counter => {
+                            counter.innerText = '0';
+                            const updateCount = () => {
+                                const target = +counter.getAttribute('data-target');
+                                const count = +counter.innerText.replace(/,/g, '');
+                                const increment = target / 200;
+                                if (count < target) {
+                                    counter.innerText = Math.ceil(count + increment).toLocaleString('en-IN');
+                                    setTimeout(updateCount, 1);
+                                } else {
+                                    counter.innerText = target.toLocaleString('en-IN');
+                                }
+                            };
+                            updateCount();
+                        });
+                        // Stop observing once animation starts
+                        counterObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.5
+            });
+
+            const trustSection = document.getElementById('trust');
+            if (trustSection) counterObserver.observe(trustSection);
+
+            // FAQ Accordion functionality
+            document.querySelectorAll('.faq-question').forEach(button => {
+                button.addEventListener('click', () => {
+                    const answer = button.nextElementSibling;
+                    const icon = button.querySelector('i');
+                    answer.classList.toggle('hidden');
+                    icon.classList.toggle('rotate-180');
+                });
+            });
+
+            // Testimonial Slider with infinite loop and dots
+            const testimonialContainer = document.getElementById('testimonial-slides');
+            if (testimonialContainer) {
+                const originalSlides = Array.from(testimonialContainer.children);
+                const slideCount = originalSlides.length;
+                const dotsContainer = document.getElementById('testimonial-dots');
+                let allSlides = [...originalSlides];
+
+                if (slideCount > 1) {
+                    const firstClone = originalSlides[0].cloneNode(true);
+                    const lastClone = originalSlides[slideCount - 1].cloneNode(true);
+                    testimonialContainer.appendChild(firstClone);
+                    testimonialContainer.insertBefore(lastClone, originalSlides[0]);
+                    allSlides = Array.from(testimonialContainer.children);
+
+                    for (let i = 0; i < slideCount; i++) {
+                        const dot = document.createElement('button');
+                        dot.classList.add('dot');
+                        dot.setAttribute('data-index', i);
+                        dotsContainer.appendChild(dot);
+                    }
+                }
+
+                const dots = dotsContainer ? Array.from(dotsContainer.children) : [];
+                let currentIndex = 1;
+                const intervalTime = 6000;
+
+                const updateDots = () => {
+                    if (dots.length === 0) return;
+                    const realIndex = (currentIndex - 1 + slideCount) % slideCount;
+                    dots.forEach((dot, index) => {
+                        dot.classList.toggle('active', index === realIndex);
+                    });
+                };
+
+                const updateSliderPosition = (withTransition) => {
+                    testimonialContainer.style.transition = withTransition ? 'transform 0.5s ease-in-out' : 'none';
+                    testimonialContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+                    if (withTransition) {
+                        updateDots();
+                    }
+                };
+
+                updateSliderPosition(false);
+                updateDots();
+
+                const moveToNext = () => {
+                    // This handles the transition from the last visible slide to the cloned first slide
+                    if (currentIndex >= allSlides.length - 1) {
+                         currentIndex++;
+                         updateSliderPosition(true);
+                         // Don't return here, let transitionend handle the reset
+                    } else {
+                        currentIndex++;
+                        updateSliderPosition(true);
+                    }
+                };
+
+                const moveToPrev = () => {
+                    // This handles the transition from the first visible slide to the cloned last slide
+                    if (currentIndex <= 0) {
+                        currentIndex--;
+                        updateSliderPosition(true);
+                        // Don't return here, let transitionend handle the reset
+                    } else {
+                        currentIndex--;
+                        updateSliderPosition(true);
+                    }
+                };
+
+                const goToTestimonial = (index) => {
+                    currentIndex = index + 1;
+                    updateSliderPosition(true);
+                }
+
+                let testimonialInterval = setInterval(moveToNext, intervalTime);
+                const resetTestimonialInterval = () => {
+                    clearInterval(testimonialInterval);
+                    testimonialInterval = setInterval(moveToNext, intervalTime);
+                };
+
+                document.getElementById('next-testimonial')?.addEventListener('click', () => {
+                    moveToNext();
+                    resetTestimonialInterval();
+                });
+
+                document.getElementById('prev-testimonial')?.addEventListener('click', () => {
+                    moveToPrev();
+                    resetTestimonialInterval();
+                });
+
+                dots.forEach(dot => {
+                    dot.addEventListener('click', (e) => {
+                        const index = parseInt(e.target.getAttribute('data-index'));
+                        goToTestimonial(index);
+                        resetTestimonialInterval();
+                    })
+                });
+
+                testimonialContainer.addEventListener('transitionend', () => {
+                    // Seamless loop: If we hit the cloned first slide, jump back to the real first slide instantly
+                    if (currentIndex === allSlides.length - 1) {
+                        currentIndex = 1;
+                        updateSliderPosition(false);
+                    } 
+                    // Seamless loop: If we hit the cloned last slide, jump back to the real last slide instantly
+                    else if (currentIndex === 0) {
+                        currentIndex = slideCount;
+                        updateSliderPosition(false);
+                    }
+                    updateDots();
+                });
+            }
+
+            // About Us Read More functionality
+            const dronaiVisionTextElement = document.getElementById('dronai-vision-text');
+            const readMoreToggle = document.getElementById('read-more-toggle');
+            const downloadBroucherBtn = document.getElementById('download-broucher');
+
+            if (dronaiVisionTextElement && readMoreToggle && downloadBroucherBtn) {
+                // Read the full text directly from the DOM before truncation
+                const fullText = dronaiVisionTextElement.textContent.trim();
+                const truncatedText = fullText.substring(0, 200) + '...';
+                let isExpanded = false;
+
+                const toggleText = () => {
+                    isExpanded = !isExpanded;
+                    if (isExpanded) {
+                        dronaiVisionTextElement.textContent = fullText;
+                        readMoreToggle.textContent = 'Read less...';
+                        downloadBroucherBtn.classList.remove('hidden');
+                    } else {
+                        dronaiVisionTextElement.textContent = truncatedText;
+                        readMoreToggle.textContent = 'Read more...';
+                        downloadBroucherBtn.classList.add('hidden');
+                    }
+                };
+
+                if (fullText.length > 200) {
+                    // Initial setup: truncate text
+                    dronaiVisionTextElement.textContent = truncatedText;
+                    readMoreToggle.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        toggleText();
+                    });
+                } else {
+                    // If text is naturally short, hide the toggle and show the button
+                    readMoreToggle.style.display = 'none';
+                    downloadBroucherBtn.classList.remove('hidden');
+                }
+            }
+
+            // Timeline progress bar functionality
+            const timeline = document.querySelector('#page-home .timeline');
+            const timelineProgress = document.getElementById('timeline-progress');
+
+            function updateTimelineProgress() {
+                if (!timeline || !timelineProgress || document.getElementById('page-home').classList.contains('hidden')) {
+                    timelineProgress.style.height = '0%';
+                    return;
+                }
+                const timelineRect = timeline.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
+
+                const start = timelineRect.top;
+                const end = timelineRect.bottom;
+                // Calculate how much of the timeline is past the top of the viewport
+                const progressStart = Math.max(0, -start);
+                // Calculate the total height of the visible timeline area
+                const totalHeight = end - timelineRect.top;
+                
+                let progress = progressStart / totalHeight;
+                progress = Math.max(0, Math.min(1, progress));
+
+                // This logic ensures the line grows based on scroll relative to the element itself
+                const scrollFromTop = window.scrollY;
+                const sectionTop = timeline.offsetTop;
+                const sectionHeight = timeline.offsetHeight;
+                
+                const visibleBottom = scrollFromTop + viewportHeight;
+                const startPoint = sectionTop + (viewportHeight * 0.1); // Start filling a bit after the section begins
+                const endPoint = sectionTop + sectionHeight - (viewportHeight * 0.1); // Finish filling a bit before the section ends
+                
+                let scrollProgress = (scrollFromTop - startPoint) / (endPoint - startPoint);
+                scrollProgress = Math.max(0, Math.min(1, scrollProgress));
+                
+                timelineProgress.style.height = `${scrollProgress * 100}%`;
+            }
+
+            window.addEventListener('scroll', updateTimelineProgress);
+            window.addEventListener('resize', updateTimelineProgress);
+            // Run on load to set initial state
+            updateTimelineProgress(); 
+        });
+    </script>
+</body>
+
+</html>
